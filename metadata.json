@@ -1,0 +1,6 @@
+{
+  "name": "Arabia Surgicare",
+  "description": "Hospital website featuring medical specialties, doctor directory, WhatsApp appointment booking, bilingual AR/EN support, and admin management panel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

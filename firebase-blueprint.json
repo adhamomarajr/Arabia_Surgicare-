@@ -1,0 +1,81 @@
+{
+  "entities": {
+    "Doctor": {
+      "title": "Doctor",
+      "description": "Doctor profile in hospital directory",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "object" },
+        "title": { "type": "object" },
+        "specialtyId": { "type": "string" },
+        "degrees": { "type": "object" },
+        "experienceYears": { "type": "number" },
+        "phone": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "available": { "type": "boolean" },
+        "timings": { "type": "object" },
+        "specializations": { "type": "object" },
+        "achievements": { "type": "object" },
+        "image": { "type": "string" },
+        "cvDocument": { "type": "object" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "specialtyId", "available"]
+    },
+    "HospitalSettings": {
+      "title": "HospitalSettings",
+      "description": "Global hospital settings and metadata",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "emergencyPhone": { "type": "string" },
+        "receptionWhatsapp": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      }
+    },
+    "Inquiry": {
+      "title": "Inquiry",
+      "description": "Patient contact or booking inquiry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 30 },
+        "message": { "type": "string", "maxLength": 2000 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "phone", "message"]
+    },
+    "AdminUpdate": {
+      "title": "AdminUpdate",
+      "description": "Log of admin changes dispatched to email",
+      "type": "object",
+      "properties": {
+        "action": { "type": "string" },
+        "actionArabic": { "type": "string" },
+        "recipient": { "type": "string" },
+        "sentAt": { "type": "string" },
+        "doctor": { "type": "object" }
+      }
+    }
+  },
+  "firestore": {
+    "/doctors/{doctorId}": {
+      "schema": "Doctor",
+      "description": "Collection of all active doctors and consultants"
+    },
+    "/settings/{settingId}": {
+      "schema": "HospitalSettings",
+      "description": "Hospital configuration settings"
+    },
+    "/inquiries/{inquiryId}": {
+      "schema": "Inquiry",
+      "description": "Patient submitted inquiries and contact messages"
+    },
+    "/admin_updates/{updateId}": {
+      "schema": "AdminUpdate",
+      "description": "Admin edit logs sent to email"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Connectivity test document
+    match /test/{testId} {
+      allow read, write: if true;
+    }
+
+    // Doctors collection - readable by all patients, updatable by hospital staff
+    match /doctors/{doctorId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Global hospital settings
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Patient inquiries from contact form
+    match /inquiries/{inquiryId} {
+      allow create: if request.resource.data.name is string 
+                    && request.resource.data.phone is string 
+                    && request.resource.data.message is string;
+      allow read, update, delete: if true;
+    }
+
+    // Admin updates log & email notification triggers
+    match /admin_updates/{updateId} {
+      allow read, write: if true;
+    }
+
+    // Firestore triggered email queue (Firebase Trigger Email extension compatible)
+    match /mail/{mailId} {
+      allow read, write: if true;
+    }
+  }
+}
